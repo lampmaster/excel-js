@@ -20,15 +20,15 @@ class Dom {
   }
 
   on(eventType, callback) {
-    console.log('on', eventType)
-    console.log('on', callback)
     this.$el.addEventListener(eventType, callback)
   }
 
   off(eventType, callback) {
-    console.log('r', eventType)
-    console.log('r', callback)
     this.$el.removeEventListener(eventType, callback)
+  }
+
+  get data() {
+    return this.$el.dataset
   }
 
   append(node) {
@@ -40,6 +40,27 @@ class Dom {
     } else {
       this.$el.appendChild(node)
     }
+  }
+
+  closestParent(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  find(selector) {
+    return $(this.$el.querySelector(selector))
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+
+  css(styles = {}) {
+    Object.keys(styles)
+      .forEach(key => this.$el.style[key] = styles[key])
+  }
+
+  getCoordinates() {
+    return this.$el.getBoundingClientRect()
   }
 }
 
