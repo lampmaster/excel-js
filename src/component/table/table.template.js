@@ -3,19 +3,35 @@ const CODE = {
   Z: 90
 }
 
-function createCell() {
-  return `<div class="cell" contenteditable>Data</div>`
+function createCell(_, index) {
+  return `<div class="cell" 
+               contenteditable 
+               data-col="${index}">
+            Data
+          </div>`
 }
 
-function createColumn(char) {
-  return `<div class="column">
+function createColumn(char, index) {
+  return `<div class="column" data-type="resizable" data-col="${index}">
              ${char}
+             <div class="col-resize" data-resize="col"></div>
+             <div class="col-resize-line" data-resize-line="col"></div>
           </div>`
 }
 
 function createRow(index, column) {
-  return `<div class="row">
-            <div class="row-info">${index ? index : ''}</div>
+  const resize = index ? `<div class="row-resize" 
+                               data-resize="row">
+                          </div>
+                          <div class="row-resize-line" 
+                          data-resize-line="row">
+                          </div>` : ''
+
+  return `<div class="row" data-type="resizable">
+            <div class="row-info">
+                ${index ? index : ''}
+                ${resize}
+            </div>
             <div class="row-data">${column}</div>
           </div>`
 }
@@ -25,15 +41,13 @@ function toChar(_, index) {
 }
 
 
-export function createTable(rowsCount = 20) {
+export function createTable(rowsCount = 60) {
   const colsCount = CODE.Z - CODE.A + 1
   const rows = []
-  console.log(colsCount)
   const cols = new Array(colsCount)
     .fill('')
     .map(toChar)
     .map(createColumn).join('')
-  console.log(cols)
 
   const cell = new Array(colsCount)
     .fill('')
