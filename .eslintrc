@@ -12,7 +12,9 @@
     "require-jsdoc": "off",
     "comma-dangle": "off",
     "no-trailing-spaces": "off",
-    "operator-linebreak": "off"
+    "operator-linebreak": "off",
+    "no-unused-vars": "off",
+    "no-debugger": "off"
   },
   "extends": ["eslint:recommended", "google"],
 }

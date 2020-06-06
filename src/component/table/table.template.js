@@ -3,12 +3,16 @@ const CODE = {
   Z: 90
 }
 
-function createCell(_, index) {
-  return `<div class="cell" 
+function createCell(row) {
+  return function(_, col) {
+    return `<div class="cell" 
                contenteditable 
-               data-col="${index}">
-            Data
+               data-type="cell"
+               data-col="${col}"
+               data-id="${row}:${col}"
+            >
           </div>`
+  }
 }
 
 function createColumn(char, index) {
@@ -49,15 +53,16 @@ export function createTable(rowsCount = 60) {
     .map(toChar)
     .map(createColumn).join('')
 
-  const cell = new Array(colsCount)
-    .fill('')
-    .map(createCell)
-    .join('')
-
   rows.push(createRow(null, cols))
 
-  for (let i = 0; i < rowsCount; i++) {
-    rows.push(createRow(i + 1, cell) )
+  for (let row = 0; row < rowsCount; row++) {
+    const cell = new Array(colsCount)
+      .fill('')
+      // .map((_, col) => createCell(col, row))
+      .map(createCell(row))
+      .join('')
+
+    rows.push(createRow(row + 1, cell) )
   }
   return rows.join('')
 }
