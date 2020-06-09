@@ -3,6 +3,8 @@ class Dom {
     this.$el = typeof selector === 'string'
       ? document.querySelector(selector)
       : selector
+
+    this.cells = []
   }
 
   html(html) {
@@ -12,6 +14,17 @@ class Dom {
     }
 
     return this.$el.outerHTML.trim()
+  }
+
+  text(text) {
+    if (typeof text === 'string') {
+      this.$el.textContent = text
+      return this
+    }
+    if (this.$el.tagName.toLowerCase() === 'input') {
+      return this.$el.value.trim()
+    }
+    return this.$el.textContent.trim()
   }
 
   clear() {
@@ -54,6 +67,16 @@ class Dom {
     return this.$el.querySelectorAll(selector)
   }
 
+  addClass(className) {
+    this.$el.classList.add(className)
+    return this
+  }
+
+  removeClass(className) {
+    this.$el.classList.remove(className)
+    return this
+  }
+
   css(styles = {}) {
     Object.keys(styles)
       .forEach(key => this.$el.style[key] = styles[key])
@@ -61,6 +84,26 @@ class Dom {
 
   getCoordinates() {
     return this.$el.getBoundingClientRect()
+  }
+
+  selectCell() {
+    this.cells.push(this.$el)
+  }
+
+  id(parse) {
+    if (parse) {
+      const parsed = this.id().split(':')
+      return {
+        row: +parsed[0],
+        col: +parsed[1]
+      }
+    }
+
+    return this.data.id
+  }
+
+  focus() {
+    this.$el.focus()
   }
 }
 

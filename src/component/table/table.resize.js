@@ -10,6 +10,7 @@ export function resizeTable(event, $root) {
     .findAll(`[data-col="${$parent.data.col}"]`)
   const $line = $parent
     .find(`[data-resize-line="${$resize.data.resize}"]`)
+  console.log($parent.data.col)
 
   let value
   document.onmousemove = e => {
@@ -36,6 +37,7 @@ export function resizeTable(event, $root) {
       $resize.css({right: 0 + 'px'})
       $line.css({right: 0 + 'px'})
       cell.forEach((el) => {
+        console.log(el)
         el.style.width = value + 'px'
       })
     } else {
