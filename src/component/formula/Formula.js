@@ -23,16 +23,16 @@ export class Formula extends ExcelComponent {
     super.init();
     const $input = this.$root.find('#formula')
 
-    this.$subscribe('table:input', text => {
+    this.$on('table:input', text => {
       $input.text(text)
     })
 
-    this.$subscribe('table:select', $currentCell => {
+    this.$on('table:select', $currentCell => {
       const text = $currentCell.text();
       $input.text(text)
     })
 
-    this.$subscribe('table:input', text => {
+    this.$on('table:input', text => {
       $input.text(text)
     })
   }

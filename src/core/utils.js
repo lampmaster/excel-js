@@ -55,3 +55,10 @@ export function nextSelectCell(key, {row, col}) {
 
   return `[data-id="${row}:${col}"]`
 }
+
+export function storage(key, data = null) {
+  if (!data) {
+    return JSON.parse(localStorage.getItem(key))
+  }
+  localStorage.setItem(key, JSON.stringify(data))
+}
