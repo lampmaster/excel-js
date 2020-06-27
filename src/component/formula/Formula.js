@@ -8,6 +8,7 @@ export class Formula extends ExcelComponent {
     super($root, {
       name: 'Formula',
       listeners: ['input', 'keydown'],
+      subscribe: ['currentText'],
       ...options
     });
   }
@@ -21,26 +22,17 @@ export class Formula extends ExcelComponent {
 
   init() {
     super.init();
-    const $input = this.$root.find('#formula')
-
-    // this.$on('table:input', text => {
-    //   $input.text(text)
-    // })
+    this.$input = this.$root.find('#formula')
 
     this.$on('table:select', $currentCell => {
       const text = $currentCell.text();
       console.log('select', text)
-      $input.text(text)
+      this.$input.text(text)
     })
+  }
 
-    this.$on('table:input', text => {
-      $input.text(text)
-    })
-    
-    this.$subscribe(state => {
-      $input.text(state.currentText)
-      console.log('formulaState', state.currentText)
-    })
+  storeChanged({currentText}) {
+    this.$input.text(currentText)
   }
 
   onInput(event) {

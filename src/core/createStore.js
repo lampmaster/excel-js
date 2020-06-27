@@ -1,4 +1,3 @@
-import {rootReducer} from '@/redux/rootReducer';
 
 export function createStore(rootReducer, initialState = {}) {
   let state = rootReducer({...initialState}, {type: '__INIT__'})
@@ -18,7 +17,9 @@ export function createStore(rootReducer, initialState = {}) {
       listeners.forEach(listener => listener(state))
     },
     getState() {
-      return state
+      // для избежания мутирования стэйта
+      // (можно использовать только с простыми структурами данных)
+      return JSON.parse(JSON.stringify(state))
     }
   }
 }

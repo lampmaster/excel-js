@@ -62,3 +62,11 @@ export function storage(key, data = null) {
   }
   localStorage.setItem(key, JSON.stringify(data))
 }
+
+export function isEqual(a, b) {
+  if (a.constructor === Object && b.constructor === Object) {
+    // можно использовать только, если используем простые структуры данных
+    return JSON.stringify(a) === JSON.stringify(b)
+  }
+  return a === b
+}
