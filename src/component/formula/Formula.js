@@ -26,7 +26,6 @@ export class Formula extends ExcelComponent {
 
     this.$on('table:select', $currentCell => {
       const text = $currentCell.text();
-      console.log('select', text)
       this.$input.text(text)
     })
   }

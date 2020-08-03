@@ -6,6 +6,7 @@ import {TableSelection} from '@/component/table/TableSelection';
 import {range, matrix, nextSelectCell} from '@core/utils';
 import {$} from '@core/Dom';
 import * as actions from '@/redux/actions'
+import {defaultStyles} from '@/constants';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table'
@@ -39,6 +40,14 @@ export class Table extends ExcelComponent {
       this.selection.current.focus()
     })
 
+    this.$on('toolbar:applyStyle', value => {
+      this.selection.applyStyle(value)
+      this.$dispatch(actions.applyStyle({
+        value,
+        ids: this.selection.selectedIds
+      }))
+    })
+
     // const cols = this.$getState()
     // Object.keys(cols.colState).forEach(key => {
     //   const cells = this.$root.findAll(`[data-col="${key}"]`)
@@ -52,6 +61,9 @@ export class Table extends ExcelComponent {
     this.selection.select($cell)
     this.$emit('table:select', $cell)
     this.$dispatch({type: 'TEST'})
+
+    const styles = $cell.getStyles(Object.keys(defaultStyles))
+    this.$dispatch(actions.changeStyles(styles))
   }
 
   async resizeTable(event) {
@@ -75,7 +87,6 @@ export class Table extends ExcelComponent {
 
           const cols = range(first.col, current.col)
           const rows = range(first.row, current.row)
-          const matr = matrix(rows, cols)
           const $cells = matrix(rows, cols)
             .map(id => this.$root.find(`[data-id="${id}"]`))
           this.selection.selectGroup($cells)

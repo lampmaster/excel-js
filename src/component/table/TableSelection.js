@@ -22,8 +22,15 @@ export class TableSelection {
     })
   }
 
+  get selectedIds() {
+    return this.group.map($el => $el.id())
+  }
   clear() {
     this.group.forEach($cell => $cell.removeClass(TableSelection.className))
     this.group = []
+  }
+
+  applyStyle(style) {
+    this.group.forEach($el => $el.css(style) )
   }
 }

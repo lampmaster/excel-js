@@ -45,8 +45,6 @@ export function resizeHandler(event, $root) {
         $line.css({bottom: 0 + 'px'})
       }
 
-      console.log(type)
-
       resolve({
         value,
         id: $parent.data[type],

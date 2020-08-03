@@ -90,6 +90,13 @@ class Dom {
     this.cells.push(this.$el)
   }
 
+  getStyles(styles = []) {
+    return styles.reduce((res, styleType) => {
+      res[styleType] = this.$el.style[styleType]
+      return res
+    }, {})
+  }
+
   id(parse) {
     if (parse) {
       const parsed = this.id().split(':')

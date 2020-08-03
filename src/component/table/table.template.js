@@ -1,3 +1,6 @@
+import {defaultStyles} from '@/constants';
+import {stylesToString} from '@core/utils';
+
 const CODE = {
   A: 65,
   Z: 90
@@ -18,17 +21,21 @@ function getData(state, row, col) {
   return (state[row + ':' + col] || '')
 }
 
-
 function createCell(row, state) {
   return function(_, col) {
+    const id = `${row}:${col}`
     const width = getWidth(state.colState, col)
     const data = getData(state.dataState, row, col)
+    const styles = stylesToString({
+      ...defaultStyles,
+      ...state.stylesState[id]
+    })
     return `<div class="cell" 
                contenteditable 
                data-type="cell"
                data-col="${col}"
                data-id="${row}:${col}"
-               style="width: ${width}"
+               style="${styles}; width: ${width}"
             >${data}
           </div>`
   }
