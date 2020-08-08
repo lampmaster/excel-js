@@ -25,8 +25,7 @@ export class Formula extends ExcelComponent {
     this.$input = this.$root.find('#formula')
 
     this.$on('table:select', $currentCell => {
-      const text = $currentCell.text();
-      this.$input.text(text)
+      this.$input.text($currentCell.data.value)
     })
   }
 
@@ -35,6 +34,7 @@ export class Formula extends ExcelComponent {
   }
 
   onInput(event) {
+    debugger
     this.$emit('formula:input', $(event.target).text())
   }
 

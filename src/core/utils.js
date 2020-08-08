@@ -81,3 +81,16 @@ export function stylesToString(styles = {}) {
     .map(key => `${camelToDashCase(key)}: ${styles[key]}`)
     .join(';')
 }
+
+export function debounce(fn, wait) {
+  let timeout
+  return function(...args) {
+    const latter = () => {
+      clearTimeout(timeout)
+      // eslint-disable-next-line
+      fn.apply(this, args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(latter, wait)
+  }
+}

@@ -1,5 +1,6 @@
 import {defaultStyles} from '@/constants';
 import {stylesToString} from '@core/utils';
+import {parse} from '@core/parse';
 
 const CODE = {
   A: 65,
@@ -35,8 +36,9 @@ function createCell(row, state) {
                data-type="cell"
                data-col="${col}"
                data-id="${row}:${col}"
+               data-value="${data || ''}"
                style="${styles}; width: ${width}"
-            >${data}
+            >${parse(data) || ''}
           </div>`
   }
 }
