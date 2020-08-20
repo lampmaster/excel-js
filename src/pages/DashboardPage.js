@@ -1,41 +1,25 @@
 import {Page} from '@core/Page';
 import {$} from '@core/Dom';
+import {getAllRecords} from '@/pages/dashboard.functions';
 
 export class DashboardPage extends Page {
   getRoot() {
+    const nowId = Date.now().toString()
     return $.create('div', 'db').html(`
-      <div class="db__header">
+        <div class="db__header">
             <h1>Excel Dashboard</h1>
         </div>
 
         <div class="db__new">
             <div class="db__view">
-                <a href="#" class="db__create">
+                <a href="#excel/${nowId}" class="db__create">
                     New <br/> Table
                 </a>
             </div>
         </div>
 
         <div class="db__table db__view">
-            <div class="db__list-header">
-                    <span>
-                        Table name
-                    </span>
-                <span>
-                        Open date
-                    </span>
-            </div>
-
-            <ul class="db__list">
-                <li class="db__record">
-                    <a href="#">Table Bable</a>
-                    <strong>12.06.2020</strong>
-                </li>
-                <li class="db__record">
-                    <a href="#">Table Bable</a>
-                    <strong>12.06.2020</strong>
-                </li>
-            </ul>
+            ${getAllRecords()}
         </div>
     `)
   }

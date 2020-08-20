@@ -9,13 +9,17 @@ import {Toolbar} from '@/component/toolbar/Toolbar';
 import {Formula} from '@/component/formula/Formula';
 import {Table} from '@/component/table/Table';
 
+function storageName(param) {
+  return 'excel_' + param
+}
+
 export class ExcelPage extends Page {
   getRoot() {
-    console.log(this.params)
     const store = createStore(rootReducer, initialState)
 
+
     const stateListener = debounce(state => {
-      storage('excel-state', state)
+      storage(storageName(this.params), state)
     }, 300)
 
     store.subscribe(stateListener)

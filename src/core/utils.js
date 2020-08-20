@@ -94,3 +94,11 @@ export function debounce(fn, wait) {
     timeout = setTimeout(latter, wait)
   }
 }
+
+export function clone(obj) {
+  return JSON.parse(JSON.stringify(obj))
+}
+
+export function preventDefault(event) {
+  event.preventDefault()
+}

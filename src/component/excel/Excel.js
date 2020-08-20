@@ -1,6 +1,8 @@
 import {$} from '@core/Dom';
 import {Emitter} from '@core/Emitter';
 import {StoreSubscriber} from '@core/StoreSubscriber';
+import * as actions from '@/redux/actions'
+import {preventDefault} from '@core/utils';
 
 export class Excel {
   constructor(options) {
@@ -30,6 +32,10 @@ export class Excel {
   }
 
   init() {
+    if (process.env.NODE_ENV === 'production') {
+      document.addEventListener('contextmenu', preventDefault)
+    }
+    this.store.dispatch(actions.setDate(new Date().toJSON()))
     this.subscriber.subscribeComponents(this.components)
     this.components.forEach(component => component.init())
   }
