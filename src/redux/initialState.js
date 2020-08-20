@@ -14,8 +14,13 @@ const defaultState = {
 
 const normalize = state => ({
   ...state,
+  currentStyles: defaultState,
   currentText: ''
 })
+
+export function normalizeInitialState(state) {
+  return state ? normalize(state) : clone(defaultState)
+}
 
 export const initialState = storage('excel-state')
   ? normalize(storage('excel-state'))
