@@ -2,7 +2,7 @@
 
 # Excel JS
 
-This app was built with pure JavaScript.
+This single page application was built with pure JavaScript.
 
 You can run this app:
 
